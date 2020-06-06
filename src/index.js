@@ -1,5 +1,3 @@
-'use strict';
+import logger from './logger';
 
-export default {
-
-};
+export default logger;
