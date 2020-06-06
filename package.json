@@ -1,0 +1,52 @@
+{
+  "name": "shoutme",
+  "version": "1.0.0",
+  "description": "Library to log message to the shell.",
+  "main": "lib/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "prepublish": "babel --presets @babel/preset-env src --out-dir lib",
+    "test": "eslint src/*.js && mocha -r esm --reporter spec",
+    "dev": "webpack --watch"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/castrofernandez/shoutme.git"
+  },
+  "author": "Juan Castro Fernández (http://juancastro.es)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/castrofernandez/shoutme/issues"
+  },
+  "homepage": "https://github.com/castrofernandez/shoutme#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "babel-loader": "^8.0.5",
+    "chai": "^4.1.2",
+    "connect": "^3.6.6",
+    "eslint": "^5.15.2",
+    "eslint-config-google": "^0.12.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "esm": "^3.2.20",
+    "mocha": "^5.0.4",
+    "serve-static": "^1.13.2",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
+  },
+  "dependencies": {
+    "whatsme": "^1.0.4"
+  }
+}
