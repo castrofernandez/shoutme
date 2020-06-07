@@ -1,4 +1,4 @@
-import Text from './text';
+import Column from './column';
 
 class Line {
     constructor({ columns = 1 } = {}) {
@@ -19,16 +19,16 @@ class Line {
     }
 
     get text() {
-        return this.data.map(({ data } = {}) => data);
+        return this.data.map(({ text } = {}) => text);
     }
 
-    addColumn(text = new Text()) {
-        return this.full ? false : this.data.push(text);
+    addColumn(text) {
+        return this.full ? false : this.data.push(new Column(text));
     }
 
-    append(text = new Text()) {
+    append(text) {
         return this.empty
-            ? this.data.push(text)
+            ? this.data.push(new Column(text))
             : this.data[this.data.length - 1].append(text);
     }
 }

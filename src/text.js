@@ -30,7 +30,7 @@ class Text {
         return fillColumn(this.value, this.columnWidth);
     }
 
-    get data() {
+    get text() {
         return `${this.background}${this.foreground}${getFilledText({
             value: this.value,
             reset: this.reset,
