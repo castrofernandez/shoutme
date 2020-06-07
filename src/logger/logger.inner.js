@@ -7,12 +7,9 @@ const DEFAULT_COLUMNS = 3;
 
 const DEFAULT_TERMINAL_WIDTH = 80;
 
-const FILL_WITH_FORMAT = false;
-
 const DEFAULT_OPTIONS = {
     columns: DEFAULT_COLUMNS,
     width: DEFAULT_TERMINAL_WIDTH,
-    fillWithFormat: FILL_WITH_FORMAT,
 };
 
 const getColorByIndex = (colors = [], index = 0) => colors[index % colors.length];
@@ -141,7 +138,6 @@ class LoggerInner {
             foreground: this.fore,
             reset: this.colorManager.reset,
             columnWidth: this.columnWidth,
-            fillWithFormat: this.options.fillWithFormat,
             value: str,
         });
     }

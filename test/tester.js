@@ -13,4 +13,4 @@ NUMBERS.forEach((number) => shoutme.randomForeround().log(number));
 shoutme.log();
 
 NUMBERS.forEach((number, index) => shoutme.appendToColumn(`${index + 1}. `).nextBackground()
-    .foreground(shoutme.colors.black).appendToColumn(number).print());
+    .foreground(shoutme.colors.white).appendToColumn(` ${number}`).print().print());

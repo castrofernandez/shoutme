@@ -6,8 +6,7 @@ const getFilledText = ({
     value,
     reset,
     gap,
-    fillWithFormat,
-}) => fillWithFormat ? `${value}${gap}${reset}` : `${value}${reset}${gap}`;
+}) => `${value}${gap}${reset}`;
 
 class Text {
     constructor({
@@ -16,14 +15,12 @@ class Text {
         reset = '',
         value = '',
         columnWidth,
-        fillWithFormat = false,
     } = {}) {
         this.background = background;
         this.foreground = foreground;
         this.reset = reset;
         this.value = value;
         this.columnWidth = columnWidth;
-        this.fillWithFormat = fillWithFormat;
     }
 
     get gap() {
@@ -35,7 +32,6 @@ class Text {
             value: this.value,
             reset: this.reset,
             gap: this.gap,
-            fillWithFormat: this.fillWithFormat,
         })}`;
     }
 
