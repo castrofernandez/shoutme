@@ -15,13 +15,13 @@ class OutputInner {
         return this.lines.map((line) => line.data);
     }
 
-    createNewLine(options = this.options) {
-        this.lines.push(new Line(options));
+    createNewLine() {
+        this.lines.push(new Line(this.options));
         return this.lastLine;
     }
 
     getLineToAppendLine() {
-        return this.lastLine.empty ? this.lastLine : this.createNewLine({ columns: 1 });
+        return this.lastLine.empty ? this.lastLine : this.createNewLine();
     }
 
     getLineToAppendColumn() {

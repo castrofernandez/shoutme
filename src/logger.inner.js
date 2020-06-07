@@ -1,4 +1,4 @@
-import { control, foreground, background } from './colors.list';
+import * as colors from './colors.list';
 import ColorManager from './color.manager';
 
 import Output from './output';
@@ -12,16 +12,21 @@ const getColorByIndex = (colors = [], index = 0) => colors[index % colors.length
 const printLine = (line = []) => console.log(line.join(''));
 
 class LoggerInner {
-    constructor(colorSetup = { control, foreground, background }) {
-        this.colorManager = new ColorManager(colorSetup);
+    constructor({
+        control = colors.control,
+        foreground = colors.foreground,
+        background = colors.background,
+        options = { columns: 3 },
+    } = {}) {
+        this.colorManager = new ColorManager({ control, foreground, background });
         this.reset();
         this.foreIndex = 0;
         this.backIndex = 0;
-        this.options = { columns: 3 };
+        this.options = options;
     }
 
     get colors() {
-        return colors;
+        return this.colorManager.colors;
     }
 
     background(color = '') {
@@ -75,7 +80,7 @@ class LoggerInner {
         this.assignBack(this.backName);
         this.foreName = 'white';
         this.assignFore(this.foreName);
-        this.output = new Output();
+        this.output = new Output(this.options);
         return this;
     }
 
@@ -103,6 +108,11 @@ class LoggerInner {
 
     appendLine(str = '') {
         this.output.addNewLine(this.formatText(str));
+        return this;
+    }
+
+    appendColumn(str = '') {
+        this.output.addNewColumn(this.formatText(str));
         return this;
     }
 

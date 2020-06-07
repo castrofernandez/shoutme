@@ -49,6 +49,11 @@ class Logger {
         return this;
     }
 
+    appendColumn(str = '') {
+        this.logger.appendColumn(str);
+        return this;
+    }
+
     appendToColumn(str = '') {
         this.logger.appendToColumn(str);
         return this;
