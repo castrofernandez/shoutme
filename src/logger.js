@@ -52,6 +52,10 @@ class Logger {
         return this;
     }
 
+    print() {
+        return this.logger.print();
+    }
+
     appendLine(str = '') {
         this.logger.appendLine(str);
         return this;

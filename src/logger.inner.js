@@ -23,7 +23,7 @@ const getColumnWidth = ({
     columns = DEFAULT_COLUMNS,
 } = {}) => Math.floor(width / columns);
 
-const printLine = (line = [], options) => console.log(line.join(''));
+const printLine = (line = []) => console.log(line.join(''));
 
 class LoggerInner {
     constructor({
@@ -125,6 +125,10 @@ class LoggerInner {
 
     log(str = '') {
         this.appendLine(str);
+        return this.print();
+    }
+
+    print() {
         this.output.lines.forEach((line) => printLine(line, this.options));
         this.reset();
         return this;

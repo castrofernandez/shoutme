@@ -25,7 +25,7 @@ class ColorManager {
     }
 
     get printableColors() {
-        return getEnum(filterNonBlack(Object.keys(this.getForegroundList())));
+        return getEnum(filterNonBlack(this.getForegroundList()));
     }
 
     getBackgroundList() {
