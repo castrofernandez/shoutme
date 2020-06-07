@@ -29,3 +29,10 @@ export const background = {
     cyan: '\x1b[46m',
     white: '\x1b[47m',
 };
+
+export const names = Object.keys(foreground).reduce((result, color) => ({
+    ...result,
+    [color]: color,
+}), {});
+
+export const reset = control.reset;

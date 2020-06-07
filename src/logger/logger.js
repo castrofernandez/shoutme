@@ -1,4 +1,5 @@
 import LoggerInner from './logger.inner';
+import colorSelection from '../color/color.selection';
 
 class Logger {
     constructor() {
@@ -18,32 +19,32 @@ class Logger {
     }
 
     background(color = '') {
-        this.logger.background(color);
+        colorSelection.background(color);
         return this;
     }
 
     randomBackground() {
-        this.logger.randomBackground(color);
+        colorSelection.randomBackground(color);
         return this;
     }
 
     nextBackground() {
-        this.logger.nextBackground();
+        colorSelection.nextBackground();
         return this;
     }
 
     foreground(color = '') {
-        this.logger.foreground(color);
+        colorSelection.foreground(color);
         return this;
     }
 
     randomForeround() {
-        this.logger.randomForeround();
+        colorSelection.randomForeround();
         return this;
     }
 
     nextForeground() {
-        this.logger.nextForeground();
+        colorSelection.nextForeground();
         return this;
     }
 

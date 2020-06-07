@@ -13,7 +13,7 @@ class OutputInner {
     }
 
     get text() {
-        return this.lines.map((line) => line.text);
+        return this.lines.map(({ text }) => text);
     }
 
     setOptions(options = {}) {

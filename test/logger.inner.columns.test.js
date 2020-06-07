@@ -3,6 +3,8 @@
 import { expect } from 'chai';
 import { spy } from 'sinon';
 import LoggerInner from '../src/logger/logger.inner';
+import ColorManager from '../src/color/color.manager';
+import colorSelection from '../src/color/color.selection';
 
 const WIDTH = 80;
 const COLUMNS = 3;
@@ -25,13 +27,19 @@ describe('logger - log (columns)', () => {
 
     beforeEach(() => {
         consoleSpy = spy(console, 'log');
+
+        colorSelection.setup(new ColorManager({
+            control: { reset: '' },
+            foreground: { white: '', black: '' },
+            background: { white: '', black: '' },
+        }));
     });
 
     afterEach(() => consoleSpy.restore());
 
     it('empty', async () => {
         logger.log();
-        expect(consoleSpy.calledWith(fillColumn(''))).to.be.true;
+        expect(consoleSpy.calledWith('')).to.be.true;
     });
 
     it('one column', async () => {

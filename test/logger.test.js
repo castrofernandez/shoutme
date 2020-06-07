@@ -1,9 +1,10 @@
 'use strict';
 
 import { expect } from 'chai';
-import { spy, stub, restore } from 'sinon';
+import { spy, restore } from 'sinon';
 import logger from '../src/logger/logger';
 import ColorManager from '../src/color/color.manager';
+import colorSelection from '../src/color/color.selection';
 
 const WIDTH = 80;
 const COLUMNS = 3;
@@ -22,7 +23,7 @@ describe('logger - log', () => {
     beforeEach(() => {
         logger.options = { width: WIDTH, columns: COLUMNS };
         consoleSpy = spy(console, 'log');
-        stub(logger.logger, 'colorManager').value(new ColorManager({
+        colorSelection.setup(new ColorManager({
             control: { reset: RESET },
             foreground: FOREGROUND,
             background: BACKGROUND,
@@ -33,23 +34,24 @@ describe('logger - log', () => {
     afterEach(() => {
         logger.restoreOptions();
         consoleSpy.restore();
+        colorSelection.setup();
         restore();
     });
 
     it('empty', async () => {
         logger.log();
-        expect(consoleSpy.calledWith(`${FOREGROUND.white}${RESET}${fillSpaces()}`)).to.be.true;
+        expect(consoleSpy.calledWith(`${FOREGROUND.white}${fillSpaces()}${RESET}`)).to.be.true;
     });
 
     it('one line', async () => {
         logger.log(TEXT1);
-        expect(consoleSpy.calledWith(`${FOREGROUND.white}${TEXT1}${RESET}${fillSpaces(TEXT1)}`)).to.be.true;
+        expect(consoleSpy.calledWith(`${FOREGROUND.white}${TEXT1}${fillSpaces(TEXT1)}${RESET}`)).to.be.true;
     });
 
     it('two lines', async () => {
         logger.log(TEXT1).log(TEXT2);
-        expect(consoleSpy.calledWith(`${FOREGROUND.white}${TEXT1}${RESET}${fillSpaces(TEXT1)}`)).to.be.true;
-        expect(consoleSpy.calledWith(`${FOREGROUND.white}${TEXT2}${RESET}${fillSpaces(TEXT2)}`)).to.be.true;
+        expect(consoleSpy.calledWith(`${FOREGROUND.white}${TEXT1}${fillSpaces(TEXT1)}${RESET}`)).to.be.true;
+        expect(consoleSpy.calledWith(`${FOREGROUND.white}${TEXT2}${fillSpaces(TEXT2)}${RESET}`)).to.be.true;
     });
 });
 

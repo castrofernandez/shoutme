@@ -10,14 +10,14 @@ const getEnum = (list) => list.reduce((total, item) => ({
 const filterNonBlack = (colors) => colors.filter((color) => color !== 'black');
 
 class ColorManager {
-    constructor({ control = [], foreground = [], background = [] } = {}) {
+    constructor({ control = {}, foreground = {}, background = {} } = {}) {
         this.control = control;
         this.foreground = foreground;
         this.background = background;
     }
 
     get reset() {
-        return this.control.reset;
+        return this.control.reset || '';
     }
 
     get colors() {

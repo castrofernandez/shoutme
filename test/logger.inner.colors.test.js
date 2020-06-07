@@ -3,6 +3,9 @@
 import { expect } from 'chai';
 import { spy } from 'sinon';
 import LoggerInner from '../src/logger/logger.inner';
+import colorSelection from '../src/color/color.selection';
+import ColorManager from '../src/color/color.manager';
+import { names } from '../src/color/color.list';
 
 const FORE_COLORS = {
     black: 'f-black',
@@ -28,10 +31,14 @@ const BACK_COLORS = {
 
 const RESET = 'reset';
 
-const mockLogger = () => new LoggerInner({
+const SETUP = {
     control: { reset: RESET },
     foreground: FORE_COLORS,
     background: BACK_COLORS,
+};
+
+const mockLogger = () => new LoggerInner({
+    ...SETUP,
     options: { width: 0 },
 });
 
@@ -41,9 +48,12 @@ describe('logger - log (colors)', () => {
 
     beforeEach(() => {
         consoleSpy = spy(console, 'log');
+        colorSelection.setup(new ColorManager(SETUP));
     });
 
-    afterEach(() => consoleSpy.restore());
+    afterEach(() => {
+        consoleSpy.restore();
+    });
 
     it('empty', async () => {
         logger.log();
@@ -56,22 +66,28 @@ describe('logger - log (colors)', () => {
     });
 
     it('one line with blue background', async () => {
-        logger.background(logger.colors.blue).log('line 1 - blue');
+        colorSelection.background(names.blue);
+        logger.log('line 1 - blue');
         expect(consoleSpy.calledWith(`${BACK_COLORS.blue}${FORE_COLORS.white}line 1 - blue${RESET}`)).to.be.true;
     });
 
-    it('one line with red background', async () => {
-        logger.foreground(logger.colors.red).log('line 1 - red');
+    it('one line with red foreground', async () => {
+        colorSelection.foreground(names.red);
+        logger.log('line 1 - red');
         expect(consoleSpy.calledWith(`${FORE_COLORS.red}line 1 - red${RESET}`)).to.be.true;
     });
 
     it('one line with blue background and red foreground', async () => {
-        logger.foreground(logger.colors.red).background(logger.colors.blue).log('line 1 - blue/red');
+        colorSelection.foreground(names.red);
+        colorSelection.background(names.blue);
+        logger.log('line 1 - blue/red');
         expect(consoleSpy.calledWith(`${BACK_COLORS.blue}${FORE_COLORS.red}line 1 - blue/red${RESET}`)).to.be.true;
     });
 
     it('two lines, first with colors, second default', async () => {
-        logger.foreground(logger.colors.red).background(logger.colors.blue).log('line 1 - blue/red');
+        colorSelection.foreground(names.red);
+        colorSelection.background(names.blue);
+        logger.log('line 1 - blue/red');
         logger.log('line 2 - default');
         expect(consoleSpy.calledWith(`${BACK_COLORS.blue}${FORE_COLORS.red}line 1 - blue/red${RESET}`)).to.be.true;
         expect(consoleSpy.calledWith(`${FORE_COLORS.white}line 2 - default${RESET}`)).to.be.true;

@@ -1,5 +1,6 @@
-import * as colors from '../color/colors.list';
+import * as colors from '../color/color.list';
 import ColorManager from '../color/color.manager';
+import colorSelection from '../color/color.selection';
 import Text from '../line/text';
 import Output from '../output/output';
 
@@ -11,8 +12,6 @@ const DEFAULT_OPTIONS = {
     columns: DEFAULT_COLUMNS,
     width: DEFAULT_TERMINAL_WIDTH,
 };
-
-const getColorByIndex = (colors = [], index = 0) => colors[index % colors.length];
 
 const getColumnWidth = ({
     width = DEFAULT_TERMINAL_WIDTH,
@@ -29,9 +28,8 @@ class LoggerInner {
         options = DEFAULT_OPTIONS,
     } = {}) {
         this.colorManager = new ColorManager({ control, foreground, background });
+        colorSelection.setup(this.colorManager);
         this.reset();
-        this.foreIndex = 0;
-        this.backIndex = 0;
         this.options = { ...options };
         this.columnWidth = getColumnWidth(options);
     }
@@ -54,69 +52,10 @@ class LoggerInner {
         this.output.setOptions(this.options);
     }
 
-    background(color = '') {
-        this.backName = color;
-        this.assignBack(color);
-        return this;
-    }
-
-    randomBackground() {
-        this.backName = this.colorManager.getRandomBackColorName();
-        this.assignBack(this.backName);
-        return this;
-    }
-
-    nextBackground() {
-        this.backName = getColorByIndex(this.colorManager.getBackgroundList(), this.backIndex);
-        this.assignBack(this.backName);
-        this.backIndex++;
-        return this;
-    }
-
-    foreground(color = '') {
-        this.foreName = color;
-        this.assignFore(color);
-        return this;
-    }
-
-    randomForeround() {
-        this.foreName = this.colorManager.getRandomForeColorName();
-        this.assignFore(this.foreName);
-        return this;
-    }
-
-    nextForeground() {
-        this.foreName = getColorByIndex(this.colorManager.getForegroundList(), this.foreIndex);
-        this.assignFore(this.foreName);
-        this.foreIndex++;
-        return this;
-    }
-
-    assignBack(color) {
-        this.back = this.colorManager.getBackColor(color);
-    }
-
-    assignFore(color) {
-        this.fore = this.colorManager.getForeColor(color);
-    }
-
     reset() {
-        this.backName = '';
-        this.assignBack(this.backName);
-        this.foreName = 'white';
-        this.assignFore(this.foreName);
+        colorSelection.reset();
         this.output = new Output(this.options);
         return this;
-    }
-
-    isForeEqualToBack() {
-        return this.foreName === this.backName;
-    }
-
-    compensate() {
-        this.fore = this.isForeEqualToBack()
-            ? this.colorManager.getForeColor(this.colorManager.compensateColor(this.foreName))
-            : this.fore;
     }
 
     log(str = '') {
@@ -131,15 +70,7 @@ class LoggerInner {
     }
 
     formatText(str = '') {
-        this.compensate();
-
-        return new Text({
-            background: this.back,
-            foreground: this.fore,
-            reset: this.colorManager.reset,
-            columnWidth: this.columnWidth,
-            value: str,
-        });
+        return new Text(str);
     }
 
     appendLine(str = '') {
