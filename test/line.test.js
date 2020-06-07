@@ -2,6 +2,7 @@
 
 import { expect } from 'chai';
 import Line from '../src/line';
+import Text from '../src/text';
 
 describe('line - empty', () => {
     it('empty', async () => {
@@ -23,36 +24,36 @@ describe('line - columns 3', () => {
     it('addColumn', async () => {
         const line = new Line(options);
 
-        line.addColumn('a');
+        line.addColumn(new Text({ value: 'a' }));
         expect(line.empty).to.be.false;
         expect(line.full).to.be.false;
 
-        line.addColumn('b');
+        line.addColumn(new Text({ value: 'b' }));
         expect(line.empty).to.be.false;
         expect(line.full).to.be.false;
 
-        line.addColumn('c');
+        line.addColumn(new Text({ value: 'c' }));
         expect(line.empty).to.be.false;
         expect(line.full).to.be.true;
 
-        expect(line.data).to.be.deep.equal([ 'a', 'b', 'c' ]);
+        expect(line.text).to.be.deep.equal([ 'a', 'b', 'c' ]);
     });
 
     it('append', async () => {
         const line = new Line(options);
 
-        line.append('a');
+        line.append(new Text({ value: 'a' }));
         expect(line.empty).to.be.false;
         expect(line.full).to.be.false;
 
-        line.append('b');
+        line.append(new Text({ value: 'b' }));
         expect(line.empty).to.be.false;
         expect(line.full).to.be.false;
 
-        line.append('c');
+        line.append(new Text({ value: 'c' }));
         expect(line.empty).to.be.false;
         expect(line.full).to.be.false;
 
-        expect(line.data).to.be.deep.equal(['abc']);
+        expect(line.text).to.be.deep.equal(['abc']);
     });
 });

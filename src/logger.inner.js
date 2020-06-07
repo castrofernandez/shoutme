@@ -1,11 +1,20 @@
 import * as colors from './colors.list';
 import ColorManager from './color.manager';
+import Text from './text';
 
 import Output from './output';
 
 const DEFAULT_COLUMNS = 3;
 
 const DEFAULT_TERMINAL_WIDTH = 80;
+
+const FILL_WITH_FORMAT = false;
+
+const DEFAULT_OPTIONS = {
+    columns: DEFAULT_COLUMNS,
+    width: DEFAULT_TERMINAL_WIDTH,
+    fillWithFormat: FILL_WITH_FORMAT,
+};
 
 const getColorByIndex = (colors = [], index = 0) => colors[index % colors.length];
 
@@ -14,30 +23,39 @@ const getColumnWidth = ({
     columns = DEFAULT_COLUMNS,
 } = {}) => Math.floor(width / columns);
 
-const getColumnRemainder = ({ length = 0 } = {}, options) => Math.max(getColumnWidth(options) - length, 0);
-
-const formatColumn = (column = '', options) => `${column}${' '.repeat(getColumnRemainder(column, options))}`;
-
-const joinColumns = (line = [], options) => line.map((column) => formatColumn(column, options)).join('');
-
-const printLine = (line = [], options) => console.log(joinColumns(line, options));
+const printLine = (line = [], options) => console.log(line.join(''));
 
 class LoggerInner {
     constructor({
         control = colors.control,
         foreground = colors.foreground,
         background = colors.background,
-        options = { columns: DEFAULT_COLUMNS, width: DEFAULT_TERMINAL_WIDTH },
+        options = DEFAULT_OPTIONS,
     } = {}) {
         this.colorManager = new ColorManager({ control, foreground, background });
         this.reset();
         this.foreIndex = 0;
         this.backIndex = 0;
-        this.options = options;
+        this.options = { ...options };
+        this.columnWidth = getColumnWidth(options);
     }
 
     get colors() {
         return this.colorManager.colors;
+    }
+
+    setOptions(options = {}) {
+        this.options = { ...this.options, ...options };
+        this.restoreOutputOptions();
+    }
+
+    restoreOptions() {
+        this.options = { ...DEFAULT_OPTIONS };
+        this.restoreOutputOptions();
+    }
+
+    restoreOutputOptions() {
+        this.output.setOptions(this.options);
     }
 
     background(color = '') {
@@ -114,7 +132,15 @@ class LoggerInner {
 
     formatText(str = '') {
         this.compensate();
-        return `${this.back}${this.fore}${str}${this.colorManager.reset}`;
+
+        return new Text({
+            background: this.back,
+            foreground: this.fore,
+            reset: this.colorManager.reset,
+            columnWidth: this.columnWidth,
+            fillWithFormat: this.options.fillWithFormat,
+            value: str,
+        });
     }
 
     appendLine(str = '') {

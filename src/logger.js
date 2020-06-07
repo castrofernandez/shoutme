@@ -9,6 +9,14 @@ class Logger {
         return this.logger.color;
     }
 
+    set options(opts = {}) {
+        this.logger.setOptions(opts);
+    }
+
+    restoreOptions() {
+        this.logger.restoreOptions();
+    }
+
     background(color = '') {
         this.logger.background(color);
         return this;

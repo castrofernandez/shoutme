@@ -6,21 +6,25 @@ class Output {
     }
 
     get lines() {
-        return this.output.data;
+        return this.output.text;
     }
 
-    addNewLine(str) {
-        this.output.addNewLine(str);
+    setOptions(options) {
+        return this.output.setOptions(options);
+    }
+
+    addNewLine(text) {
+        this.output.addNewLine(text);
         return this;
     }
 
-    addNewColumn(str) {
-        this.output.addNewColumn(str);
+    addNewColumn(text) {
+        this.output.addNewColumn(text);
         return this;
     }
 
-    appendToColumn(str) {
-        this.output.appendToColumn(str);
+    appendToColumn(text) {
+        this.output.appendToColumn(text);
         return this;
     }
 }

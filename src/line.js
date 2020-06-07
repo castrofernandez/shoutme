@@ -1,3 +1,5 @@
+import Text from './text';
+
 class Line {
     constructor({ columns = 1 } = {}) {
         this.options = { columns };
@@ -16,16 +18,18 @@ class Line {
         return this.data.length === this.columns;
     }
 
-    addColumn(str = '') {
-        return this.full ? false : this.data.push(str);
+    get text() {
+        return this.data.map(({ data } = {}) => data);
     }
 
-    append(str = '') {
-        if (this.empty) {
-            this.data.push([]);
-        }
+    addColumn(text = new Text()) {
+        return this.full ? false : this.data.push(text);
+    }
 
-        this.data[this.data.length - 1] += str;
+    append(text = new Text()) {
+        return this.empty
+            ? this.data.push(text)
+            : this.data[this.data.length - 1].append(text);
     }
 }
 

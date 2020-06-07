@@ -1,4 +1,5 @@
 import Line from './line';
+import Text from './text';
 
 class OutputInner {
     constructor(options = {}) {
@@ -11,8 +12,12 @@ class OutputInner {
         return this.lines[this.lines.length - 1];
     }
 
-    get data() {
-        return this.lines.map((line) => line.data);
+    get text() {
+        return this.lines.map((line) => line.text);
+    }
+
+    setOptions(options = {}) {
+        this.options = { ...this.options, ...options };
     }
 
     createNewLine() {
@@ -28,18 +33,18 @@ class OutputInner {
         return this.lastLine.full ? this.createNewLine() : this.lastLine;
     }
 
-    addNewLine(str = '') {
-        this.getLineToAppendLine().append(str);
+    addNewLine(text = new Text()) {
+        this.getLineToAppendLine().append(text);
         return this;
     }
 
-    addNewColumn(str = '') {
-        this.getLineToAppendColumn().addColumn(str);
+    addNewColumn(text = new Text()) {
+        this.getLineToAppendColumn().addColumn(text);
         return this;
     }
 
-    appendToColumn(str = '') {
-        this.getLineToAppendColumn().append(str);
+    appendToColumn(text = new Text()) {
+        this.getLineToAppendColumn().append(text);
         return this;
     }
 }
