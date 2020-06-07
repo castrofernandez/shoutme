@@ -3,20 +3,31 @@ import ColorManager from './color.manager';
 
 import Output from './output';
 
-// const TERMINAL_WIDTH = 80;
+const DEFAULT_COLUMNS = 3;
+
+const DEFAULT_TERMINAL_WIDTH = 80;
 
 const getColorByIndex = (colors = [], index = 0) => colors[index % colors.length];
 
-// const getColumnWidth = (columns = 1) => Math.floor(TERMINAL_WIDTH / columns);
+const getColumnWidth = ({
+    width = DEFAULT_TERMINAL_WIDTH,
+    columns = DEFAULT_COLUMNS,
+} = {}) => Math.floor(width / columns);
 
-const printLine = (line = []) => console.log(line.join(''));
+const getColumnRemainder = ({ length = 0 } = {}, options) => Math.max(getColumnWidth(options) - length, 0);
+
+const formatColumn = (column = '', options) => `${column}${' '.repeat(getColumnRemainder(column, options))}`;
+
+const joinColumns = (line = [], options) => line.map((column) => formatColumn(column, options)).join('');
+
+const printLine = (line = [], options) => console.log(joinColumns(line, options));
 
 class LoggerInner {
     constructor({
         control = colors.control,
         foreground = colors.foreground,
         background = colors.background,
-        options = { columns: 3 },
+        options = { columns: DEFAULT_COLUMNS, width: DEFAULT_TERMINAL_WIDTH },
     } = {}) {
         this.colorManager = new ColorManager({ control, foreground, background });
         this.reset();
@@ -96,7 +107,7 @@ class LoggerInner {
 
     log(str = '') {
         this.appendLine(str);
-        this.output.lines.forEach((line) => printLine(line));
+        this.output.lines.forEach((line) => printLine(line, this.options));
         this.reset();
         return this;
     }

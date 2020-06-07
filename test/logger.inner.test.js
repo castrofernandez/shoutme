@@ -8,6 +8,7 @@ const mockLogger = () => new LoggerInner({
     control: { reset: '' },
     foreground: { white: '', black: '' },
     background: { white: '', black: '' },
+    options: { width: 0, columns: 3 },
 });
 
 describe('logger - log', () => {

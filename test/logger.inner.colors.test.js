@@ -32,6 +32,7 @@ const mockLogger = () => new LoggerInner({
     control: { reset: RESET },
     foreground: FORE_COLORS,
     background: BACK_COLORS,
+    options: { width: 0 },
 });
 
 describe('logger - log (colors)', () => {
