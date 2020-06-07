@@ -1,5 +1,5 @@
 # shoutme
-Library to log message to the shell.
+Library to log messages to the shell.
 
 1. Install 
 
@@ -25,6 +25,13 @@ This watches files and compiles them
 
 ```
 npm start
+```
+
+This start a web server to preview index.html
+
+```
+chmod +x ./test/tester.js
+./test/tester.js
 ```
 
 To test the library in the terminal.
