@@ -1,4 +1,4 @@
-const { getRandom } = require('./utils');
+const { getRandom } = require('../utils/utils');
 
 const getRandomColorName = (colors) => colors[getRandom(colors.length)];
 

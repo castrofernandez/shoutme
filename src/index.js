@@ -1,4 +1,4 @@
-import shoutme from './logger';
+import shoutme from './logger/logger';
 
 export default shoutme;
 

@@ -1,8 +1,8 @@
 'use strict';
 
 import { expect } from 'chai';
-import Output from '../src/output';
-import Text from '../src/text';
+import Output from '../src/output/output';
+import Text from '../src/line/text';
 
 describe('Output - empty', () => {
     it('lines', async () => {

@@ -2,7 +2,7 @@
 
 import { expect } from 'chai';
 import { spy } from 'sinon';
-import LoggerInner from '../src/logger.inner';
+import LoggerInner from '../src/logger/logger.inner';
 
 const mockLogger = () => new LoggerInner({
     control: { reset: '' },

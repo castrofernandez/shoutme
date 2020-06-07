@@ -1,8 +1,7 @@
-import * as colors from './colors.list';
-import ColorManager from './color.manager';
-import Text from './text';
-
-import Output from './output';
+import * as colors from '../color/colors.list';
+import ColorManager from '../color/color.manager';
+import Text from '../line/text';
+import Output from '../output/output';
 
 const DEFAULT_COLUMNS = 3;
 

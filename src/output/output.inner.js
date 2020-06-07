@@ -1,5 +1,5 @@
-import Line from './line';
-import Text from './text';
+import Line from '../line/line';
+import Text from '../line/text';
 
 class OutputInner {
     constructor(options = {}) {

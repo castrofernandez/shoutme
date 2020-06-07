@@ -2,8 +2,8 @@
 
 import { expect } from 'chai';
 import { spy, stub, restore } from 'sinon';
-import logger from '../src/logger';
-import ColorManager from '../src/color.manager';
+import logger from '../src/logger/logger';
+import ColorManager from '../src/color/color.manager';
 
 const WIDTH = 80;
 const COLUMNS = 3;
