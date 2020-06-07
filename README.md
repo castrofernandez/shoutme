@@ -23,6 +23,12 @@ npm run dev
 
 This watches files and compiles them
 
+```
+npm start
+```
+
+To test the library in the terminal.
+
 4. Run tests
 
 ```

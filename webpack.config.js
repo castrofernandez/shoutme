@@ -1,16 +1,15 @@
 const path = require('path');
-const webpack = require('webpack');
 
 module.exports = {
     mode: 'development',
     entry: './src',
     devServer: {
-        contentBase: './src',
-        hot: true
-    },  
+        contentBase: './',
+        hot: true,
+    },
     output: {
         path: path.resolve(__dirname, 'lib'),
-        filename: 'index.js'
+        filename: 'index.js',
     },
     module: {
         rules: [{
@@ -18,12 +17,12 @@ module.exports = {
             loader: 'babel-loader',
             exclude: [/node_modules/],
             query: {
-                presets: ['@babel/preset-env']
-            }
-        }]
+                presets: ['@babel/preset-env'],
+            },
+        }],
     },
     stats: {
-        colors: true
+        colors: true,
     },
-    devtool: 'source-map'
+    devtool: 'source-map',
 };

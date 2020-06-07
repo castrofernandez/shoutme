@@ -6,7 +6,7 @@ class Logger {
     }
 
     get colors() {
-        return this.logger.color;
+        return this.logger.colors;
     }
 
     set options(opts = {}) {
