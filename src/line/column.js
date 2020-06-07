@@ -1,5 +1,4 @@
 import Text from './text';
-import colorSelection from '../color/color.selection';
 
 const getColumnRemainder = (width, columnWidth = 0) => Math.max(columnWidth - width, 0);
 
@@ -21,13 +20,11 @@ class Column {
     }
 
     get text() {
-        const { background, foreground, reset } = colorSelection.selection;
-
-        return `${background}${foreground}${getText(this.texts)}${this.gap}${reset}`;
+        return `${getText(this.texts)}${this.gap}`;
     }
 
     get width() {
-        return this.texts.reduce((total, { text } = {}) => total + text.length, 0);
+        return this.texts.reduce((total, { length } = {}) => total + length, 0);
     }
 
     get gap() {

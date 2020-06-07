@@ -40,18 +40,18 @@ describe('logger - log', () => {
 
     it('empty', async () => {
         logger.log();
-        expect(consoleSpy.calledWith(`${FOREGROUND.white}${fillSpaces()}${RESET}`)).to.be.true;
+        expect(consoleSpy.calledWith(`${FOREGROUND.white}${RESET}${fillSpaces()}`)).to.be.true;
     });
 
     it('one line', async () => {
         logger.log(TEXT1);
-        expect(consoleSpy.calledWith(`${FOREGROUND.white}${TEXT1}${fillSpaces(TEXT1)}${RESET}`)).to.be.true;
+        expect(consoleSpy.calledWith(`${FOREGROUND.white}${TEXT1}${RESET}${fillSpaces(TEXT1)}`)).to.be.true;
     });
 
     it('two lines', async () => {
         logger.log(TEXT1).log(TEXT2);
-        expect(consoleSpy.calledWith(`${FOREGROUND.white}${TEXT1}${fillSpaces(TEXT1)}${RESET}`)).to.be.true;
-        expect(consoleSpy.calledWith(`${FOREGROUND.white}${TEXT2}${fillSpaces(TEXT2)}${RESET}`)).to.be.true;
+        expect(consoleSpy.calledWith(`${FOREGROUND.white}${TEXT1}${RESET}${fillSpaces(TEXT1)}`)).to.be.true;
+        expect(consoleSpy.calledWith(`${FOREGROUND.white}${TEXT2}${RESET}${fillSpaces(TEXT2)}`)).to.be.true;
     });
 });
 
