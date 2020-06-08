@@ -18,8 +18,8 @@ class Logger {
         this.logger.restoreOptions();
     }
 
-    background(color = '') {
-        colorSelection.background(color);
+    back(color = '') {
+        colorSelection.back(color);
         return this;
     }
 

@@ -2,7 +2,7 @@
 
 import shoutme from '../src/index';
 
-shoutme.background(shoutme.colors.red).fore(shoutme.colors.cyan).log('Hi!');
+shoutme.back(shoutme.colors.red).fore(shoutme.colors.cyan).log('Hi!');
 
 shoutme.log();
 

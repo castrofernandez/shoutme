@@ -28,7 +28,7 @@ class ColorSelection {
         this.foreName = names.white;
     }
 
-    background(color = '') {
+    back(color = '') {
         this.backName = color;
     }
 
