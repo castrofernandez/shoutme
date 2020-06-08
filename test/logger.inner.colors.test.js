@@ -72,20 +72,20 @@ describe('logger - log (colors)', () => {
     });
 
     it('one line with red foreground', async () => {
-        colorSelection.foreground(names.red);
+        colorSelection.fore(names.red);
         logger.log('line 1 - red');
         expect(consoleSpy.calledWith(`${FORE_COLORS.red}line 1 - red${RESET}`)).to.be.true;
     });
 
     it('one line with blue background and red foreground', async () => {
-        colorSelection.foreground(names.red);
+        colorSelection.fore(names.red);
         colorSelection.background(names.blue);
         logger.log('line 1 - blue/red');
         expect(consoleSpy.calledWith(`${BACK_COLORS.blue}${FORE_COLORS.red}line 1 - blue/red${RESET}`)).to.be.true;
     });
 
     it('two lines, first with colors, second default', async () => {
-        colorSelection.foreground(names.red);
+        colorSelection.fore(names.red);
         colorSelection.background(names.blue);
         logger.log('line 1 - blue/red');
         logger.log('line 2 - default');

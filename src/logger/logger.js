@@ -33,8 +33,8 @@ class Logger {
         return this;
     }
 
-    foreground(color = '') {
-        colorSelection.foreground(color);
+    fore(color = '') {
+        colorSelection.fore(color);
         return this;
     }
 

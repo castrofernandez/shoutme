@@ -41,7 +41,7 @@ class ColorSelection {
         this.backIndex++;
     }
 
-    foreground(color = '') {
+    fore(color = '') {
         this.foreName = color;
     }
 
