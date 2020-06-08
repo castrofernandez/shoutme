@@ -45,7 +45,7 @@ class ColorSelection {
         this.foreName = color;
     }
 
-    randomForeround() {
+    randomFore() {
         this.foreName = this.colorManager.getRandomForeColorName();
     }
 

@@ -38,8 +38,8 @@ class Logger {
         return this;
     }
 
-    randomForeround() {
-        colorSelection.randomForeround();
+    randomFore() {
+        colorSelection.randomFore();
         return this;
     }
 

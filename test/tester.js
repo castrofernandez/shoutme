@@ -8,7 +8,7 @@ shoutme.log();
 
 const NUMBERS = [ 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten' ];
 
-NUMBERS.forEach((number) => shoutme.randomForeround().log(number));
+NUMBERS.forEach((number) => shoutme.randomFore().log(number));
 
 shoutme.log();
 
