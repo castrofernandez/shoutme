@@ -1,10 +1,17 @@
 import Text from './text';
+import colorSelection from '../color/color.selection';
 
 const getColumnRemainder = (width, columnWidth = 0) => Math.max(columnWidth - width, 0);
 
 const fillColumn = (width = 0, columnWidth) => ' '.repeat(getColumnRemainder(width, columnWidth));
 
 const getText = (texts = []) => texts.map(({ text }) => text).join('');
+
+const getColorSelection = () => colorSelection.selection || {};
+
+const shouldFill = () => getColorSelection().fill;
+
+const wrapGap = ({ background = '', reset = '', gap = '' }) => shouldFill() ? `${background}${gap}${reset}` : gap;
 
 class Column {
     constructor({
@@ -28,7 +35,10 @@ class Column {
     }
 
     get gap() {
-        return fillColumn(this.width, this.columnWidth);
+        return wrapGap({
+            gap: fillColumn(this.width, this.columnWidth),
+            ...colorSelection.selection,
+        });
     }
 }
 

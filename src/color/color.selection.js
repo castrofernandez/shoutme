@@ -16,6 +16,7 @@ class ColorSelection {
             foreground: this.colorManager.getForeColor(this.foreName),
             background: this.colorManager.getBackColor(this.backName),
             reset: this.colorManager.reset,
+            fill: this.filled,
         };
     }
 
@@ -26,6 +27,11 @@ class ColorSelection {
     reset() {
         this.backName = '';
         this.foreName = names.white;
+        this.filled = false;
+    }
+
+    fill() {
+        this.filled = true;
     }
 
     back(color = '') {

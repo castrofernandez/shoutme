@@ -15,4 +15,4 @@ shoutme.log();
 NUMBERS.forEach((number, index) => shoutme.add(`${index + 1}. `).nextBack()
     .fore(shoutme.colors.white).add(` ${number} `).print().print());
 
-shoutme.log().nextBack().log('The end');
+shoutme.log().nextBack().fill().log('The end');
