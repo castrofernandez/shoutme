@@ -71,6 +71,11 @@ class Logger {
         this.logger.add(str);
         return this;
     }
+
+    reset() {
+        colorSelection.reset();
+        return this;
+    }
 }
 
 export default new Logger();
