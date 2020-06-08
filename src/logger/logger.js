@@ -23,8 +23,8 @@ class Logger {
         return this;
     }
 
-    randomBackground() {
-        colorSelection.randomBackground(color);
+    randomBack() {
+        colorSelection.randomBack(color);
         return this;
     }
 

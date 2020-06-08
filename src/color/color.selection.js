@@ -32,7 +32,7 @@ class ColorSelection {
         this.backName = color;
     }
 
-    randomBackground() {
+    randomBack() {
         this.backName = this.colorManager.getRandomBackColorName();
     }
 
