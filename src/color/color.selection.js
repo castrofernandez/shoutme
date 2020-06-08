@@ -36,7 +36,7 @@ class ColorSelection {
         this.backName = this.colorManager.getRandomBackColorName();
     }
 
-    nextBackground() {
+    nextBack() {
         this.backName = getColorByIndex(this.colorManager.getBackgroundList(), this.backIndex);
         this.backIndex++;
     }
@@ -49,7 +49,7 @@ class ColorSelection {
         this.foreName = this.colorManager.getRandomForeColorName();
     }
 
-    nextForeground() {
+    nextFore() {
         this.foreName = getColorByIndex(this.colorManager.getForegroundList(), this.foreIndex);
         this.foreIndex++;
     }

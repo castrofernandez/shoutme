@@ -28,8 +28,8 @@ class Logger {
         return this;
     }
 
-    nextBackground() {
-        colorSelection.nextBackground();
+    nextBack() {
+        colorSelection.nextBack();
         return this;
     }
 
@@ -43,8 +43,8 @@ class Logger {
         return this;
     }
 
-    nextForeground() {
-        colorSelection.nextForeground();
+    nextFore() {
+        colorSelection.nextFore();
         return this;
     }
 
