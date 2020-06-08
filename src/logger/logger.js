@@ -54,7 +54,8 @@ class Logger {
     }
 
     print() {
-        return this.logger.print();
+        this.logger.print();
+        return this;
     }
 
     line(str = '') {
