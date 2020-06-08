@@ -43,12 +43,12 @@ describe('logger - log (columns)', () => {
     });
 
     it('one column', async () => {
-        logger.appendColumn('column 1').log();
+        logger.column('column 1').log();
         expect(consoleSpy.calledWith(fillColumn('column 1'))).to.be.true;
     });
 
     it('two columns', async () => {
-        logger.appendColumn('column 1').appendColumn('column 2').log();
+        logger.column('column 1').column('column 2').log();
         expect(consoleSpy.calledWith(fillColumn('column 1') + fillColumn('column 2'))).to.be.true;
     });
 });

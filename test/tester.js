@@ -12,7 +12,7 @@ NUMBERS.forEach((number) => shoutme.randomFore().log(number));
 
 shoutme.log();
 
-NUMBERS.forEach((number, index) => shoutme.appendToColumn(`${index + 1}. `).nextBack()
-    .fore(shoutme.colors.white).appendToColumn(` ${number} `).print().print());
+NUMBERS.forEach((number, index) => shoutme.add(`${index + 1}. `).nextBack()
+    .fore(shoutme.colors.white).add(` ${number} `).print().print());
 
 shoutme.log().nextBack().log('The end');

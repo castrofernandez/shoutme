@@ -57,18 +57,18 @@ class Logger {
         return this.logger.print();
     }
 
-    appendLine(str = '') {
-        this.logger.appendLine(str);
+    line(str = '') {
+        this.logger.line(str);
         return this;
     }
 
-    appendColumn(str = '') {
-        this.logger.appendColumn(str);
+    column(str = '') {
+        this.logger.column(str);
         return this;
     }
 
-    appendToColumn(str = '') {
-        this.logger.appendToColumn(str);
+    add(str = '') {
+        this.logger.add(str);
         return this;
     }
 }

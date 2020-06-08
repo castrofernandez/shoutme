@@ -59,7 +59,7 @@ class LoggerInner {
     }
 
     log(str = '') {
-        this.appendLine(str);
+        this.line(str);
         return this.print();
     }
 
@@ -73,17 +73,17 @@ class LoggerInner {
         return new Text(str);
     }
 
-    appendLine(str = '') {
+    line(str = '') {
         this.output.addNewLine(this.formatText(str));
         return this;
     }
 
-    appendColumn(str = '') {
+    column(str = '') {
         this.output.addNewColumn(this.formatText(str));
         return this;
     }
 
-    appendToColumn(str = '') {
+    add(str = '') {
         this.output.appendToColumn(this.formatText(str));
         return this;
     }
