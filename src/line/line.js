@@ -1,36 +1,50 @@
 import Column from './column';
+import optionManager from '../utils/option.manager';
+import Text from './text';
+
+const rangeToFill = (length) => [...Array(Math.max(optionManager.columns - length, 0)).keys()];
+
+const emptyColumn = () => new Column({ text: new Text() });
 
 class Line {
-    constructor({ columns = 1, width = 0 } = {}) {
-        this.options = { columns, width };
-        this.columnWidth = columns > 0 ? Math.floor(width / columns) : 0;
-        this.data = [];
+    constructor() {
+        this.columns = [];
     }
 
     get empty() {
-        return this.data.length === 0;
-    }
-
-    get columns() {
-        return this.options.columns;
+        return this.columns.length === 0;
     }
 
     get full() {
-        return this.data.length === this.columns;
+        return this.columns.length === optionManager.columns;
+    }
+
+    get length() {
+        return this.columns.length;
     }
 
     get text() {
-        return this.data.map(({ text } = {}) => text);
+        return [
+            ...this.columns.map(({ text } = {}) => text),
+            ...rangeToFill(this.length).map(() => emptyColumn().text),
+        ];
+    }
+
+    get lastColumn() {
+        return this.columns[this.columns.length - 1] || {};
     }
 
     addColumn(text) {
-        return this.full ? false : this.data.push(new Column({ text, columnWidth: this.columnWidth }));
+        return this.full ? false : this.columns.push(new Column({
+            text,
+            isLastColumn: this.columns.length === optionManager.columns - 1,
+        }));
     }
 
     append(text) {
         return this.empty
-            ? this.data.push(new Column({ text, columnWidth: this.columnWidth }))
-            : this.data[this.data.length - 1].append(text);
+            ? this.columns.push(new Column({ text }))
+            : this.lastColumn.append(text);
     }
 }
 

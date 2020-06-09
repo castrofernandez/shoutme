@@ -18,6 +18,11 @@ class Text {
         return this.values.reduce((total, { value }) => total + value.length, 0);
     }
 
+    get last() {
+        const length = this.values.length;
+        return length > 0 ? { ...this.values[length - 1] } : {};
+    }
+
     append({ values = [] } = {}) {
         this.values.push(...values);
     }

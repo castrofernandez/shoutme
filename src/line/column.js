@@ -1,29 +1,22 @@
 import Text from './text';
 import colorSelection from '../color/color.selection';
+import optionManager from '../utils/option.manager';
 
-const getColumnRemainder = (width, columnWidth = 0) => Math.max(columnWidth - width, 0);
+const getColumnRemainder = (width) => Math.max(optionManager.columnWidth - width, 0);
 
-const fillColumn = (width = 0, columnWidth) => ' '.repeat(getColumnRemainder(width, columnWidth));
+const fillColumn = (width) => ' '.repeat(getColumnRemainder(width));
 
 const getText = (texts = []) => texts.map(({ text }) => text).join('');
 
-const getColorSelection = () => colorSelection.selection || {};
-
-const shouldFill = () => getColorSelection().fill;
-
-const wrapGap = ({ background = '', reset = '', gap = '' }) => shouldFill() ? `${background}${gap}${reset}` : gap;
+const wrapGap = ({ background = '', reset = '', gap = '', fill = false }) => fill
+    ? `${background}${gap}${reset}`
+    : gap;
 
 class Column {
-    constructor({
-        text,
-        columnWidth,
-    }) {
+    constructor({ text, isLastColumn = false }) {
         this.texts = [...(text ? [text] : [])];
-        this.columnWidth = columnWidth;
-    }
-
-    append(text = new Text()) {
-        this.texts.push(text);
+        this.isLastColumn = isLastColumn;
+        this.colorSelection = { ...colorSelection.selection };
     }
 
     get text() {
@@ -36,9 +29,19 @@ class Column {
 
     get gap() {
         return wrapGap({
-            gap: fillColumn(this.width, this.columnWidth),
-            ...colorSelection.selection,
+            gap: fillColumn(this.width),
+            ...this.lastText,
         });
+    }
+
+    get lastText() {
+        const length = this.texts.length;
+        return length > 0 ? this.texts[length - 1].last : {};
+    }
+
+    append(text = new Text()) {
+        this.texts.push(text);
+        return this;
     }
 }
 

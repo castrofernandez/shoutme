@@ -12,7 +12,10 @@ NUMBERS.forEach((number) => shoutme.randomFore().log(number));
 
 shoutme.log();
 
-NUMBERS.forEach((number, index) => shoutme.add(`${index + 1}. `).nextBack()
-    .fore(shoutme.colors.white).add(` ${number} `).print().print());
+const fillGap = (str = '', width = 0) => `${' '.repeat(width - str.length)}${str}`;
 
-shoutme.log().nextBack().fill().log('The end');
+NUMBERS.forEach((number, index) => shoutme.fill().add(fillGap(`${index + 1}. `, 4)).nextBack()
+    .fore(shoutme.colors.black).add(` ${number} `).nextBack().column('column 2')
+    .nextBack().column('column 3').print().print());
+
+shoutme.log().fore(shoutme.colors.black).nextBack().fill().log('The end').log();

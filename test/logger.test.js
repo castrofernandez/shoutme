@@ -5,15 +5,16 @@ import { spy, restore } from 'sinon';
 import logger from '../src/logger/logger';
 import ColorManager from '../src/color/color.manager';
 import colorSelection from '../src/color/color.selection';
+import optionManager from '../src/utils/option.manager';
 
 const WIDTH = 80;
-const COLUMNS = 3;
+const COLUMNS = 1;
 const COLUMN_WIDTH = Math.floor(WIDTH / COLUMNS);
 const RESET = 'reset';
 const FOREGROUND = { white: 'f-white', black: 'f-black', red: 'f-red', blue: 'f-blue' };
 const BACKGROUND = { white: 'b-white', black: 'b-black', red: 'b-red', blue: 'b-blue' };
 
-const fillSpaces = ({ length = 0 } = {}) => ' '.repeat(COLUMN_WIDTH - length);
+const fillSpaces = ({ length = 0 } = {}) => ' '.repeat(Math.max(COLUMN_WIDTH - length, 0));
 
 describe('logger - log', () => {
     const TEXT1 = 'line 1';
@@ -21,7 +22,6 @@ describe('logger - log', () => {
     let consoleSpy;
 
     beforeEach(() => {
-        logger.options = { width: WIDTH, columns: COLUMNS };
         consoleSpy = spy(console, 'log');
         colorSelection.setup(new ColorManager({
             control: { reset: RESET },
@@ -29,13 +29,15 @@ describe('logger - log', () => {
             background: BACKGROUND,
         }));
         logger.logger.reset();
+        optionManager.setup({ width: WIDTH, columns: COLUMNS, fill: false });
     });
 
     afterEach(() => {
-        logger.restoreOptions();
+        logger.reset();
         consoleSpy.restore();
-        colorSelection.setup();
+        colorSelection.reset();
         restore();
+        optionManager.reset();
     });
 
     it('empty', async () => {
@@ -58,7 +60,7 @@ describe('logger - log', () => {
         logger.fore('red').back('blue').log(TEXT1);
         expect(consoleSpy.calledWith(`${BACKGROUND.blue}${FOREGROUND.red}${TEXT1}${RESET}${fillSpaces(TEXT1)}`))
             .to.be.true;
-        logger.reset().log(TEXT2);
+        logger.reset().setup({ columns: COLUMNS, width: WIDTH }).log(TEXT2);
         expect(consoleSpy.calledWith(`${FOREGROUND.white}${TEXT2}${RESET}${fillSpaces(TEXT2)}`)).to.be.true;
     });
 });

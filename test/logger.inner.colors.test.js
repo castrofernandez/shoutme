@@ -5,6 +5,7 @@ import { spy } from 'sinon';
 import LoggerInner from '../src/logger/logger.inner';
 import colorSelection from '../src/color/color.selection';
 import ColorManager from '../src/color/color.manager';
+import optionManager from '../src/utils/option.manager';
 import { names } from '../src/color/color.list';
 
 const FORE_COLORS = {
@@ -49,15 +50,17 @@ describe('logger - log (colors)', () => {
     beforeEach(() => {
         consoleSpy = spy(console, 'log');
         colorSelection.setup(new ColorManager(SETUP));
+        optionManager.setup({ width: 1, columns: 1 });
     });
 
     afterEach(() => {
         consoleSpy.restore();
+        optionManager.reset();
     });
 
     it('empty', async () => {
         logger.log();
-        expect(consoleSpy.calledWith(`${FORE_COLORS.white}${RESET}`)).to.be.true;
+        expect(consoleSpy.calledWith(`${FORE_COLORS.white}${RESET} `)).to.be.true;
     });
 
     it('one line with default colors', async () => {

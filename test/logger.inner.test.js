@@ -3,13 +3,15 @@
 import { expect } from 'chai';
 import { spy } from 'sinon';
 import LoggerInner from '../src/logger/logger.inner';
+import optionManager from '../src/utils/option.manager';
 
 const mockLogger = () => new LoggerInner({
     control: { reset: '' },
     foreground: { white: '', black: '' },
     background: { white: '', black: '' },
-    options: { width: 0, columns: 3 },
 });
+
+const setupOptions = () => optionManager.setup({ width: 1, columns: 3 });
 
 describe('logger - log', () => {
     const logger = mockLogger();
@@ -17,9 +19,13 @@ describe('logger - log', () => {
 
     beforeEach(() => {
         consoleSpy = spy(console, 'log');
+        setupOptions();
     });
 
-    afterEach(() => consoleSpy.restore());
+    afterEach(() => {
+        consoleSpy.restore();
+        optionManager.reset();
+    });
 
     it('empty', async () => {
         logger.log();
@@ -44,9 +50,13 @@ describe('logger - line()', () => {
 
     beforeEach(() => {
         consoleSpy = spy(console, 'log');
+        setupOptions();
     });
 
-    afterEach(() => consoleSpy.restore());
+    afterEach(() => {
+        consoleSpy.restore();
+        optionManager.reset();
+    });
 
     it('empty', async () => {
         logger.line().log();
@@ -71,9 +81,13 @@ describe('logger - add()', () => {
 
     beforeEach(() => {
         consoleSpy = spy(console, 'log');
+        setupOptions();
     });
 
-    afterEach(() => consoleSpy.restore());
+    afterEach(() => {
+        consoleSpy.restore();
+        optionManager.reset();
+    });
 
     it('empty', async () => {
         logger.add().log();
@@ -115,9 +129,13 @@ describe('logger - column()', () => {
 
     beforeEach(() => {
         consoleSpy = spy(console, 'log');
+        setupOptions();
     });
 
-    afterEach(() => consoleSpy.restore());
+    afterEach(() => {
+        consoleSpy.restore();
+        optionManager.reset();
+    });
 
     it('empty', async () => {
         logger.column().log();

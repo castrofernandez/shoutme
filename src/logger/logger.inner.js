@@ -1,22 +1,9 @@
 import * as colors from '../color/color.list';
 import ColorManager from '../color/color.manager';
 import colorSelection from '../color/color.selection';
+import optionManager from '../utils/option.manager';
 import Text from '../line/text';
 import Output from '../output/output';
-
-const DEFAULT_COLUMNS = 3;
-
-const DEFAULT_TERMINAL_WIDTH = 80;
-
-const DEFAULT_OPTIONS = {
-    columns: DEFAULT_COLUMNS,
-    width: DEFAULT_TERMINAL_WIDTH,
-};
-
-const getColumnWidth = ({
-    width = DEFAULT_TERMINAL_WIDTH,
-    columns = DEFAULT_COLUMNS,
-} = {}) => Math.floor(width / columns);
 
 const printLine = (line = []) => console.log(line.join(''));
 
@@ -25,36 +12,19 @@ class LoggerInner {
         control = colors.control,
         foreground = colors.foreground,
         background = colors.background,
-        options = DEFAULT_OPTIONS,
     } = {}) {
         this.colorManager = new ColorManager({ control, foreground, background });
         colorSelection.setup(this.colorManager);
         this.reset();
-        this.options = { ...options };
-        this.columnWidth = getColumnWidth(options);
     }
 
     get colors() {
         return this.colorManager.colors;
     }
 
-    setOptions(options = {}) {
-        this.options = { ...this.options, ...options };
-        this.restoreOutputOptions();
-    }
-
-    restoreOptions() {
-        this.options = { ...DEFAULT_OPTIONS };
-        this.restoreOutputOptions();
-    }
-
-    restoreOutputOptions() {
-        this.output.setOptions(this.options);
-    }
-
     reset() {
         colorSelection.reset();
-        this.output = new Output(this.options);
+        this.output = new Output();
         return this;
     }
 
@@ -64,7 +34,7 @@ class LoggerInner {
     }
 
     print() {
-        this.output.lines.forEach((line) => printLine(line, this.options));
+        this.output.lines.forEach((line) => printLine(line, optionManager.options));
         this.reset();
         return this;
     }

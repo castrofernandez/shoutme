@@ -5,6 +5,7 @@ import { spy } from 'sinon';
 import LoggerInner from '../src/logger/logger.inner';
 import ColorManager from '../src/color/color.manager';
 import colorSelection from '../src/color/color.selection';
+import optionManager from '../src/utils/option.manager';
 
 const WIDTH = 80;
 const COLUMNS = 3;
@@ -33,22 +34,27 @@ describe('logger - log (columns)', () => {
             foreground: { white: '', black: '' },
             background: { white: '', black: '' },
         }));
+
+        optionManager.setup({ width: 80, columns: 3 });
     });
 
-    afterEach(() => consoleSpy.restore());
+    afterEach(() => {
+        consoleSpy.restore();
+        optionManager.reset();
+    });
 
     it('empty', async () => {
         logger.log();
-        expect(consoleSpy.calledWith('')).to.be.true;
+        expect(consoleSpy.calledWith(fillColumn() + fillColumn() + fillColumn())).to.be.true;
     });
 
     it('one column', async () => {
         logger.column('column 1').log();
-        expect(consoleSpy.calledWith(fillColumn('column 1'))).to.be.true;
+        expect(consoleSpy.calledWith(fillColumn('column 1') + fillColumn() + fillColumn())).to.be.true;
     });
 
     it('two columns', async () => {
         logger.column('column 1').column('column 2').log();
-        expect(consoleSpy.calledWith(fillColumn('column 1') + fillColumn('column 2'))).to.be.true;
+        expect(consoleSpy.calledWith(fillColumn('column 1') + fillColumn('column 2') + fillColumn())).to.be.true;
     });
 });

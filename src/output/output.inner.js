@@ -2,8 +2,7 @@ import Line from '../line/line';
 import Text from '../line/text';
 
 class OutputInner {
-    constructor(options = {}) {
-        this.options = options;
+    constructor() {
         this.lines = [];
         this.createNewLine();
     }
@@ -16,12 +15,8 @@ class OutputInner {
         return this.lines.map(({ text }) => text);
     }
 
-    setOptions(options = {}) {
-        this.options = { ...this.options, ...options };
-    }
-
     createNewLine() {
-        this.lines.push(new Line(this.options));
+        this.lines.push(new Line());
         return this.lastLine;
     }
 
@@ -34,7 +29,8 @@ class OutputInner {
     }
 
     addNewLine(text = new Text()) {
-        this.getLineToAppendLine().append(text);
+        const line = this.getLineToAppendLine();
+        line.append(text);
         return this;
     }
 

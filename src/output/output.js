@@ -1,16 +1,12 @@
 import OutputInner from './output.inner';
 
 class Output {
-    constructor(options) {
-        this.output = new OutputInner(options);
+    constructor() {
+        this.output = new OutputInner();
     }
 
     get lines() {
         return this.output.text;
-    }
-
-    setOptions(options) {
-        return this.output.setOptions(options);
     }
 
     addNewLine(text) {

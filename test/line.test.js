@@ -5,12 +5,13 @@ import Line from '../src/line/line';
 import Text from '../src/line/text';
 import ColorManager from '../src/color/color.manager';
 import colorSelection from '../src/color/color.selection';
+import optionManager from '../src/utils/option.manager';
 
 describe('line - empty', () => {
     it('empty', async () => {
         expect(new Line().empty).to.be.true;
         expect(new Line().full).to.be.false;
-        expect(new Line().columns).to.be.equal(1);
+        expect(new Line().columns.length).to.be.equal(0);
     });
 });
 
@@ -23,12 +24,18 @@ describe('line - columns 3', () => {
             foreground: { black: '', white: '' },
             background: { black: '', white: '' },
         }));
+        optionManager.setup({ width: 1 });
+    });
+
+    afterEach(() => {
+        colorSelection.reset();
+        optionManager.reset();
     });
 
     it('empty', async () => {
         expect(new Line(options).empty).to.be.true;
         expect(new Line(options).full).to.be.false;
-        expect(new Line(options).columns).to.be.equal(3);
+        expect(new Line(options).columns.length).to.be.equal(0);
     });
 
     it('addColumn', async () => {
@@ -64,6 +71,6 @@ describe('line - columns 3', () => {
         expect(line.empty).to.be.false;
         expect(line.full).to.be.false;
 
-        expect(line.text).to.be.deep.equal(['abc']);
+        expect(line.text[0]).to.be.equal('abc');
     });
 });

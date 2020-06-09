@@ -1,5 +1,6 @@
 import LoggerInner from './logger.inner';
 import colorSelection from '../color/color.selection';
+import optionManager from '../utils/option.manager';
 
 class Logger {
     constructor() {
@@ -8,14 +9,6 @@ class Logger {
 
     get colors() {
         return this.logger.colors;
-    }
-
-    set options(opts = {}) {
-        this.logger.setOptions(opts);
-    }
-
-    restoreOptions() {
-        this.logger.restoreOptions();
     }
 
     back(color = '') {
@@ -74,7 +67,13 @@ class Logger {
     }
 
     reset() {
+        optionManager.reset();
         colorSelection.reset();
+        return this;
+    }
+
+    setup(options) {
+        optionManager.setup(options);
         return this;
     }
 
