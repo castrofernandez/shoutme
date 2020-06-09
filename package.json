@@ -1,6 +1,6 @@
 {
   "name": "shoutme",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Library to log messages to the shell.",
   "main": "lib/index.js",
   "directories": {
